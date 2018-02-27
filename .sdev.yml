@@ -1,0 +1,19 @@
+name: "sdev.sh"
+description: "sdev.sh is a simple command line tool for managing your daily dev tasks."
+tasks:
+  build:
+    description: "Build the library. Check tsconfig.json for output directory."
+    compose:
+      file: docker/docker-compose.yml
+      command: run
+      options:
+        command: yarn build
+        rm: true
+  test:
+    description: "Run unit test suite."
+    compose:
+      file: docker/docker-compose.yml
+      command: run
+      options:
+        command: yarn test
+        rm: true

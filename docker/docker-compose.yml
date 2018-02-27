@@ -1,0 +1,17 @@
+version: '3'
+
+volumes:
+  modules:
+
+services:
+  sdev:
+    container_name: "sdev"
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: 'sdev'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../:/var/www/app
+      - modules:/var/www/app/node_modules
+      - ~/.bash_history:/root/.bash_history
