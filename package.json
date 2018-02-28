@@ -7,19 +7,30 @@
   "author": "Martin Fernandez <fmartin91@gmail.com>",
   "repository": "https://github.com/bilby91/sdev.sh",
   "private": false,
+  "bin": {
+    "sdev": "bin/sdev"
+  },
   "scripts": {
-    "start": "node lib/index.js",
+    "start": "ts-node src/index.ts",
     "build": "tsc -p .",
+    "build:tests": "tsc -p __tests__/tsconfig.json",
     "lint": "tslint 'src/**/*.ts' '__tests__/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' '__tests__/**/*.ts' --fix",
     "ci": "yarn lint && yarn build && yarn test",
-    "test": "node_modules/.bin/jest --config jest.json"
+    "test": "node_modules/.bin/jest --config jest.json",
+    "ci": "yarn lint && yarn build && yarn build:tests && yarn test",
+    "prepare": "yarn build",
+    "preversion": "yarn test",
+    "changelog": "bundle exec github_changelog_generator"
   },
   "dependencies": {
+    "commander": "^2.14.1",
+    "yaml-validator": "^1.2.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/jest": "^22.1.3",
+    "@types/node": "^8",
     "@types/yamljs": "^0.2.30",
     "jest": "^22.4.0",
     "ts-jest": "^22.0.4",
