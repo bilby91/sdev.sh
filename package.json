@@ -1,6 +1,6 @@
 {
   "name": "sdev.sh",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Simple Development Scripting with docker-compose",
   "license": "MIT",
   "main": "lib/index.js",
