@@ -9,7 +9,7 @@ export interface ICreateCommandOptions {
   definitionPath: string
 }
 
-export function createCommandLineTool(command: Command, options: ICreateCommandOptions) {
+export function bootstrapCommand(command: Command, options: ICreateCommandOptions) {
   const { valid, definition } = new Parser(options.definitionPath).run()
 
   if (!valid) {

@@ -1,4 +1,4 @@
-# sdev.sh
+# sdev.sh [![CircleCI](https://circleci.com/gh/bilby91/sdev.sh/tree/master.svg?style=svg)](https://circleci.com/gh/bilby91/sdev.sh/tree/master)
 
 Simple Development Scripting with docker-compose
 

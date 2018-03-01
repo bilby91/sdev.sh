@@ -13,4 +13,8 @@ export interface ISDevTask {
   description: string
   command: string
   container: string
+  ports?: string[]
+  volumes?: string[]
+  environment?: string[]
+  rm?: boolean
 }

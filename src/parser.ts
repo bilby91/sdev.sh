@@ -13,10 +13,14 @@ const structure = {
   },
   tasks: [
     {
-      name: "string",
-      description: "string",
-      command: "string",
-      container: "string",
+      "name": "string",
+      "description": "string",
+      "command": "string",
+      "container": "string",
+      "ports?": ["string"],
+      "volumes?": ["string"],
+      "environment?": ["string"],
+      "rm?": "boolean",
     },
   ],
 }
