@@ -1,11 +1,11 @@
 import { Command } from "commander"
 import "jest"
 import * as path from "path"
-import { createCommandLineTool, ICreateCommandOptions } from "../src/command"
+import { bootstrapCommand, ICreateCommandOptions } from "../src/command"
 
 const definitionPath = path.join(__dirname, "../.sdev.yml")
 
-describe("createCommandLineTool", () => {
+describe("bootstrapCommand", () => {
   let commandMock: Command
   let options: ICreateCommandOptions
 
@@ -25,13 +25,13 @@ describe("createCommandLineTool", () => {
   })
 
   it("assigns the version", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.version).toHaveBeenCalledWith("1.0.0")
   })
 
   it("assigns the description", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.description).toHaveBeenCalledWith(
       "sdev.sh is a simple command line tool for managing your daily dev tasks.",
@@ -39,13 +39,13 @@ describe("createCommandLineTool", () => {
   })
 
   it("assigns an action to perform", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.action).toHaveBeenCalled()
   })
 
   it("assigns the build command", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.command).toHaveBeenCalledWith(
       "build",
@@ -54,7 +54,7 @@ describe("createCommandLineTool", () => {
   })
 
   it("assigns the test command", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.command).toHaveBeenCalledWith(
       "test",
@@ -63,7 +63,7 @@ describe("createCommandLineTool", () => {
   })
 
   it("assigns the bash command", () => {
-    createCommandLineTool(commandMock as any, options)
+    bootstrapCommand(commandMock as any, options)
 
     expect(commandMock.command).toHaveBeenCalledWith(
       "bash",

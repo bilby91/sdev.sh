@@ -47,11 +47,21 @@ describe("Parser", () => {
               description: "Build the library. Check tsconfig.json for output directory."
               command: yarn build
               container: sdev
+              rm: true
 
             - name: test
               description: "Run unit test suite."
               container: sdev
               command: yarn test
+              volumes:
+                - "/var/dev:/foo/var"
+
+            - name: server
+              description: "Start development server."
+              container: sdev
+              command: yarn server
+              ports:
+                - "8080:8080"
         `
 
         const fd = fs.openSync(filePath, "wx")
@@ -83,12 +93,21 @@ describe("Parser", () => {
               description: "Build the library. Check tsconfig.json for output directory.",
               command: "yarn build",
               container: "sdev",
+              rm: true,
             },
             {
               name: "test",
               description: "Run unit test suite.",
               container: "sdev",
               command: "yarn test",
+              volumes: ["/var/dev:/foo/var"],
+            },
+            {
+              name: "server",
+              description: "Start development server.",
+              container: "sdev",
+              command: "yarn server",
+              ports: ["8080:8080"],
             },
           ],
         })
