@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.2.0](https://github.com/bilby91/sdev.sh/tree/v0.2.0) (2018-03-01)
+[Full Changelog](https://github.com/bilby91/sdev.sh/compare/v0.0.1...v0.2.0)
+
+**Merged pull requests:**
+
+- Improve README [\#2](https://github.com/bilby91/sdev.sh/pull/2) ([bilby91](https://github.com/bilby91))
+- Add more docker-compose options [\#1](https://github.com/bilby91/sdev.sh/pull/1) ([bilby91](https://github.com/bilby91))
+
 ## [v0.0.1](https://github.com/bilby91/sdev.sh/tree/v0.0.1) (2018-02-28)
 
 
