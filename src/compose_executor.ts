@@ -5,10 +5,12 @@ export type Exec = (cmd: string) => void
 export class ComposeExecutor {
   private exec: Exec
   private composeFilePath: string
+  private projectName: string
 
-  constructor(exec: Exec, composeFilePath: string) {
+  constructor(exec: Exec, composeFilePath: string, projectName: string) {
     this.exec = exec
     this.composeFilePath = composeFilePath
+    this.projectName = projectName
   }
 
   public run(task: ISDevTask) {
@@ -16,6 +18,7 @@ export class ComposeExecutor {
       [
         "docker-compose",
         this.expandOptions("f", [this.composeFilePath]),
+        this.expandOptions("p", [this.projectName]),
         "run",
         this.flag("rm", task.rm),
         this.expandOptions("p", task.ports),

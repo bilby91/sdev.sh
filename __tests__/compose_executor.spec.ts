@@ -12,7 +12,7 @@ describe("ComposeExecutor", () => {
 
   describe("run", () => {
     beforeEach(() => {
-      compose = new ComposeExecutor(execMock, composeFilePath)
+      compose = new ComposeExecutor(execMock, composeFilePath, "test-project")
     })
 
     it("executes the correct docker-compose command", () => {
@@ -24,7 +24,7 @@ describe("ComposeExecutor", () => {
       })
 
       expect(execMock).toHaveBeenCalledWith(
-        "docker-compose -f docker/docker-compose.yml run test_container test_command",
+        "docker-compose -f docker/docker-compose.yml -p test-project run test_container test_command",
       )
     })
 
@@ -39,7 +39,7 @@ describe("ComposeExecutor", () => {
         })
 
         expect(execMock).toHaveBeenCalledWith(
-          "docker-compose -f docker/docker-compose.yml run -p 8080:8080 test_container test_command",
+          "docker-compose -f docker/docker-compose.yml -p test-project run -p 8080:8080 test_container test_command",
         )
       })
     })
@@ -55,7 +55,7 @@ describe("ComposeExecutor", () => {
         })
 
         expect(execMock).toHaveBeenCalledWith(
-          "docker-compose -f docker/docker-compose.yml run --rm test_container test_command",
+          "docker-compose -f docker/docker-compose.yml -p test-project run --rm test_container test_command",
         )
       })
     })
@@ -71,7 +71,7 @@ describe("ComposeExecutor", () => {
         })
 
         expect(execMock).toHaveBeenCalledWith(
-          "docker-compose -f docker/docker-compose.yml run -v /var/dev:/foo/var test_container test_command",
+          "docker-compose -f docker/docker-compose.yml -p test-project run -v /var/dev:/foo/var test_container test_command", // tslint:disable-line
         )
       })
     })
