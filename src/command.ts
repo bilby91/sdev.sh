@@ -22,7 +22,11 @@ export function bootstrapCommand(command: Command, options: ICreateCommandOption
     .action((task) => {
       const taskDefinition = definition.tasks.find((x) => x.name === task) as ISDevTask
 
-      new ComposeExecutor(options.exec, definition.docker.compose_file).run(taskDefinition)
+      new ComposeExecutor(
+        options.exec,
+        definition.docker.compose_file,
+        definition.name,
+      ).run(taskDefinition)
     })
 
   definition

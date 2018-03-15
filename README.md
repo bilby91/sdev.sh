@@ -94,6 +94,8 @@ The previous definition will generate the following output when calling `sdev` w
 
 The definition file should be straight forward and mimic `docker-compose` as much as possible. Generally, tasks should be simple commands that you run in the container with some ports, environment and volumes variations.
 
+> Note: docker-compose inovations will use the `-p` flag to scope containers to your project. This is very useful when you use a common docker folder for all your projects.
+
 ### version (number)
 
 The sdev file version. Always 1
