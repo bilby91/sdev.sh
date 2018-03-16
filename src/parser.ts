@@ -1,8 +1,7 @@
 import * as fs from "fs"
+import * as YamlValidator from "yaml-validator"
 import * as yaml from "yamljs"
 import { ISDevDefinition } from "./interfaces"
-
-const YamlValidator = require("yaml-validator")
 
 const structure = {
   version: "number",
