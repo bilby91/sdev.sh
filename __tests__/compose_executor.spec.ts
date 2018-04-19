@@ -10,6 +10,34 @@ describe("ComposeExecutor", () => {
     execMock = jest.fn<Exec>()
   })
 
+  describe("up", () => {
+    beforeEach(() => {
+      compose = new ComposeExecutor(execMock, composeFilePath, "test-project")
+    })
+
+    it("executes the correct docker-compose command", () => {
+      compose.up()
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p test-project up",
+      )
+    })
+  })
+
+  describe("down", () => {
+    beforeEach(() => {
+      compose = new ComposeExecutor(execMock, composeFilePath, "test-project")
+    })
+
+    it("executes the correct docker-compose command", () => {
+      compose.down()
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p test-project down",
+      )
+    })
+  })
+
   describe("run", () => {
     beforeEach(() => {
       compose = new ComposeExecutor(execMock, composeFilePath, "test-project")

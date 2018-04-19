@@ -13,12 +13,17 @@ export class ComposeExecutor {
     this.projectName = projectName
   }
 
+  public up() {
+    this.composeExec(["up"])
+  }
+
+  public down() {
+    this.composeExec(["down"])
+  }
+
   public run(task: ISDevTask) {
-    this.exec(
+    this.composeExec(
       [
-        "docker-compose",
-        this.expandOptions("f", [this.composeFilePath]),
-        this.expandOptions("p", [this.projectName]),
         "run",
         this.flag("rm", task.rm),
         this.expandOptions("p", task.ports),
@@ -26,12 +31,19 @@ export class ComposeExecutor {
         this.expandOptions("e", task.environment),
         task.container,
         task.command,
-      ]
-      .filter((x) => x !== "")
-      .join(" "),
+      ],
     )
   }
 
+  private composeExec(args: string[]) {
+    this.exec(
+      [
+        "docker-compose",
+        this.expandOptions("f", [this.composeFilePath]),
+        this.expandOptions("p", [this.projectName]),
+      ].concat(args).filter((x) => x !== "").join(" "),
+    )
+  }
   private flag(flagName?: string, flagStatus?: boolean) {
     if (!flagStatus) {
       return ""

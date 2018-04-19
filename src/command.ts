@@ -20,14 +20,30 @@ export function bootstrapCommand(command: Command, options: ICreateCommandOption
     .version(options.version)
     .description(definition.description)
     .action((task) => {
-      const taskDefinition = definition.tasks.find((x) => x.name === task) as ISDevTask
-
-      new ComposeExecutor(
+      const composeExec = new ComposeExecutor(
         options.exec,
         definition.docker.compose_file,
         definition.name,
-      ).run(taskDefinition)
+      )
+
+      switch (task) {
+        case "up": {
+          composeExec.up()
+          break
+        }
+        case "down": {
+          composeExec.down()
+          break
+        }
+        default: {
+          const taskDefinition = definition.tasks.find((x) => x.name === task) as ISDevTask
+
+          composeExec.run(taskDefinition)
+        }
+      }
     })
+    .command("up", "Create and start docker-compose containers")
+    .command("down", "Stop and remove docker-compose containers, networks, images, and volumes")
 
   definition
     .tasks
