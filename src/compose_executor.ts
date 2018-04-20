@@ -44,6 +44,7 @@ export class ComposeExecutor {
       ].concat(args).filter((x) => x !== "").join(" "),
     )
   }
+
   private flag(flagName?: string, flagStatus?: boolean) {
     if (!flagStatus) {
       return ""

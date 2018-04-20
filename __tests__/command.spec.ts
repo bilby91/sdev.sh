@@ -2,25 +2,33 @@ import { Command } from "commander"
 import "jest"
 import * as path from "path"
 import { bootstrapCommand, ICreateCommandOptions } from "../src/command"
+import { Exec } from "../src/compose_executor"
 
 const definitionPath = path.join(__dirname, "../.sdev.yml")
 
 describe("bootstrapCommand", () => {
   let commandMock: Command
+  let execMock: Exec
+  let actionRunner: (command: string) => void
   let options: ICreateCommandOptions
 
   beforeEach(() => {
+    execMock = jest.fn()
+
     commandMock = {
       version: jest.fn(() => commandMock),
       description: jest.fn(() => commandMock),
-      action: jest.fn(() => commandMock),
       command: jest.fn(() => commandMock),
+      action: jest.fn((actionHandler) => {
+        actionRunner = actionHandler
+        return commandMock
+      }),
     } as any
 
     options = {
       version: "1.0.0",
       definitionPath,
-      exec: jest.fn(),
+      exec: execMock,
     }
   })
 
@@ -69,5 +77,51 @@ describe("bootstrapCommand", () => {
       "bash",
       "ssh in docker container",
     )
+  })
+
+  describe("when setting up the command runner", () => {
+    beforeEach(() => {
+      bootstrapCommand(commandMock as any, options)
+    })
+
+    it("it handles up", () => {
+      actionRunner("up")
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p sdev.sh up",
+      )
+    })
+
+    it("it handles down", () => {
+      actionRunner("down")
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p sdev.sh down",
+      )
+    })
+
+    it("it handles build", () => {
+      actionRunner("build")
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p sdev.sh run sdev yarn build",
+      )
+    })
+
+    it("it handles test", () => {
+      actionRunner("test")
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p sdev.sh run sdev yarn test",
+      )
+    })
+
+    it("it handles bash", () => {
+      actionRunner("bash")
+
+      expect(execMock).toHaveBeenCalledWith(
+        "docker-compose -f docker/docker-compose.yml -p sdev.sh run sdev /bin/bash",
+      )
+    })
   })
 })
